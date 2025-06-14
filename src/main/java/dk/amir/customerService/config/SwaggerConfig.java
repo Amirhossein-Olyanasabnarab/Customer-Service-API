@@ -1,4 +1,4 @@
-package dk.amir.customerservice.config;
+package dk.amir.customerService.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

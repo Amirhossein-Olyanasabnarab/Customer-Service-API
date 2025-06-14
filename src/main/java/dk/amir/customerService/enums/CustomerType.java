@@ -1,4 +1,4 @@
-package dk.amir.customerservice.enums;
+package dk.amir.customerService.enums;
 
 public enum CustomerType {
     REAL,

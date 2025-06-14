@@ -1,6 +1,6 @@
-package dk.amir.customerservice.model;
+package dk.amir.customerService.model;
 
-import dk.amir.customerservice.enums.CustomerType;
+import dk.amir.customerService.enums.CustomerType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

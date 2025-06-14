@@ -1,8 +1,8 @@
-package dk.amir.customerservice.model;
+package dk.amir.customerService.model;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import dk.amir.customerservice.enums.CustomerType;
+import dk.amir.customerService.enums.CustomerType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

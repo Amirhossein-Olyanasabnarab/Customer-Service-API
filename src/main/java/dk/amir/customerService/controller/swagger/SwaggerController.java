@@ -1,4 +1,4 @@
-package dk.amir.customerservice.controller.swagger;
+package dk.amir.customerService.controller.swagger;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
