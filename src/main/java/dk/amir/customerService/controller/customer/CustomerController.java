@@ -2,6 +2,11 @@ package dk.amir.customerService.controller.customer;
 
 import dk.amir.customerService.facade.CustomerFacade;
 import dk.amir.customerService.model.Customer;
+import dk.amir.customerService.model.LegalCustomer;
+import dk.amir.customerService.model.RealCustomer;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +24,7 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerFacade facade;
+
     @Autowired
     public CustomerController(CustomerFacade facade) {
         this.facade = facade;
@@ -35,12 +41,88 @@ public class CustomerController {
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
+    public Customer createCustomer(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    required = true,
+                    description = "Customer object to be added.",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(
+                                    oneOf = {
+                                            RealCustomer.class,
+                                            LegalCustomer.class
+                                    }
+                            ),
+                            examples = {
+                                    @ExampleObject(
+                                            name = "Real Customer Example",
+                                            value = "{"
+                                                    + "\"fullName\": \"John Doe\","
+                                                    + "\"email\": \"john@gmail.com\","
+                                                    + "\"phone\": \"+1234567890\","
+                                                    + "\"type\": \"REAL\","
+                                                    + "\"nationality\": \"UK\","
+                                                    + "\"age\": \"42\""
+                                                    + "}"
+                                    ),
+                                    @ExampleObject(
+                                            name = "Legal Customer Example",
+                                            value = "{"
+                                                    + "\"fullName\": \"John Doe\","
+                                                    + "\"email\": \"john@gmail.com\","
+                                                    + "\"phone\": \"+1234567890\","
+                                                    + "\"type\": \"LEGAL\","
+                                                    + "\"companyName\": \"ABC Co\","
+                                                    + "\"industry\": \"IT\""
+                                                    + "}"
+                                    )
+                            }
+                    )
+            )
+            @RequestBody Customer customer
+    ) {
         return facade.createCustomer(customer);
     }
 
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+    public Customer updateCustomer(@PathVariable Long id,
+                                   @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                                           required = true,
+                                           description = "Customer object to be added.",
+                                           content = @Content(
+                                                   mediaType = "application/json",
+                                                   schema = @Schema(
+                                                           oneOf = {
+                                                                   RealCustomer.class,
+                                                                   LegalCustomer.class
+                                                           }
+                                                   ),
+                                                   examples = {
+                                                           @ExampleObject(
+                                                                   name = "Real Customer Example",
+                                                                   value = "{"
+                                                                           + "\"fullName\": \"John Doe\","
+                                                                           + "\"email\": \"john@gmail.com\","
+                                                                           + "\"phone\": \"+1234567890\","
+                                                                           + "\"type\": \"REAL\","
+                                                                           + "\"nationality\": \"UK\","
+                                                                           + "\"age\": \"42\""
+                                                                           + "}"
+                                                           ),
+                                                           @ExampleObject(
+                                                                   name = "Legal Customer Example",
+                                                                   value = "{"
+                                                                           + "\"fullName\": \"John Doe\","
+                                                                           + "\"email\": \"john@gmail.com\","
+                                                                           + "\"phone\": \"+1234567890\","
+                                                                           + "\"type\": \"LEGAL\","
+                                                                           + "\"companyName\": \"ABC Co\","
+                                                                           + "\"industry\": \"IT\""
+                                                                           + "}"
+                                                           )
+                                                   }
+                                           )
+                                   ) @RequestBody Customer customer) {
         return facade.updateCustomer(id, customer);
     }
 
@@ -49,7 +131,7 @@ public class CustomerController {
         boolean success = facade.deleteCustomer(id);
         if (success) {
             return "Customer deleted successfully";
-        }else {
+        } else {
             return "Customer could not be deleted";
         }
     }
