@@ -4,6 +4,7 @@ import dk.amir.customerService.facade.CustomerFacade;
 import dk.amir.customerService.model.Customer;
 import dk.amir.customerService.model.LegalCustomer;
 import dk.amir.customerService.model.RealCustomer;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,16 +31,19 @@ public class CustomerController {
         this.facade = facade;
     }
 
+    @Operation(summary = "Get all customers", description = "Retrieve a list of all customers")
     @GetMapping
     public List<Customer> getCustomers() {
         return facade.getAllCustomers();
     }
 
+    @Operation(summary = "Get customer by ID", description = "Retrieve a customer by its unique identifier")
     @GetMapping("/{id}")
     public Customer getCustomer(@PathVariable Long id) {
         return facade.getCustomerById(id);
     }
 
+    @Operation(summary = "Add a new customer", description = "Create a new customer")
     @PostMapping
     public Customer createCustomer(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -84,6 +88,7 @@ public class CustomerController {
         return facade.createCustomer(customer);
     }
 
+    @Operation(summary = "Update an existing customer", description = "Update the details of an existing customer")
     @PutMapping("/{id}")
     public Customer updateCustomer(@PathVariable Long id,
                                    @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -126,6 +131,8 @@ public class CustomerController {
         return facade.updateCustomer(id, customer);
     }
 
+
+    @Operation(summary = "Delete a customer", description = "Remove a customer")
     @DeleteMapping("/{id}")
     public String deleteCustomer(@PathVariable Long id) {
         boolean success = facade.deleteCustomer(id);
