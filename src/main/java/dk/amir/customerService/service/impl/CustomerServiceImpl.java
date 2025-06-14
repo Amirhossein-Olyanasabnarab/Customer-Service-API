@@ -56,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer updateCustomer(Long id, Customer updatedCustomer) {
         if (customerDao.isExist(id)){
-            return customerDao.save(updatedCustomer);
+            return customerDao.update(id,updatedCustomer);
         }
         return null;
     }
