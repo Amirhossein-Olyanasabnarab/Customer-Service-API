@@ -1,5 +1,7 @@
 package dk.amir.customerService.dto;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import dk.amir.customerService.enums.CustomerType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -7,6 +9,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+@JsonTypeInfo(include = JsonTypeInfo.As.PROPERTY,
+        use = JsonTypeInfo.Id.NAME,
+        property = "type"
+)
+
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RealCustomerDto.class, name = "REAL"),
+        @JsonSubTypes.Type(value = LegalCustomerDto.class, name = "LEGAL")
+})
 
 @Getter
 @Setter

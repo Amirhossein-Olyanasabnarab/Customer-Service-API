@@ -12,14 +12,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 
-public class LegalCustomer extends CustomerDto {
+public class LegalCustomerDto extends CustomerDto {
 
     @Schema(name = "companyName", example = "ABC Co")
     private String companyName;
     @Schema(name = "industry", example = "Tech")
     private String industry;
 
-    public LegalCustomer(){
+    public LegalCustomerDto(){
         this.setType(CustomerType.LEGAL);
     }
 }
