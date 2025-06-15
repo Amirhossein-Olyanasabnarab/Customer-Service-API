@@ -1,5 +1,8 @@
 package dk.amir.customerService.controller.customer;
 
+import dk.amir.customerService.dto.CustomerDto;
+import dk.amir.customerService.dto.LegalCustomerDto;
+import dk.amir.customerService.dto.RealCustomerDto;
 import dk.amir.customerService.facade.impl.CustomerFacadeImpl;
 import dk.amir.customerService.model.Customer;
 import dk.amir.customerService.model.LegalCustomer;
@@ -33,19 +36,19 @@ public class CustomerController {
 
     @Operation(summary = "Get all customers", description = "Retrieve a list of all customers")
     @GetMapping
-    public List<Customer> getCustomers() {
+    public List<CustomerDto> getCustomers() {
         return facade.getAllCustomers();
     }
 
     @Operation(summary = "Get customer by ID", description = "Retrieve a customer by its unique identifier")
     @GetMapping("/{id}")
-    public Customer getCustomer(@PathVariable Long id) {
+    public CustomerDto getCustomer(@PathVariable Long id) {
         return facade.getCustomerById(id);
     }
 
     @Operation(summary = "Add a new customer", description = "Create a new customer")
     @PostMapping
-    public Customer createCustomer(
+    public CustomerDto createCustomer(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     required = true,
                     description = "Customer object to be added.",
@@ -53,8 +56,8 @@ public class CustomerController {
                             mediaType = "application/json",
                             schema = @Schema(
                                     oneOf = {
-                                            RealCustomer.class,
-                                            LegalCustomer.class
+                                            RealCustomerDto.class,
+                                            LegalCustomerDto.class
                                     }
                             ),
                             examples = {
@@ -83,14 +86,14 @@ public class CustomerController {
                             }
                     )
             )
-            @RequestBody Customer customer
+            @RequestBody CustomerDto customer
     ) {
         return facade.createCustomer(customer);
     }
 
     @Operation(summary = "Update an existing customer", description = "Update the details of an existing customer")
     @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Long id,
+    public CustomerDto updateCustomer(@PathVariable Long id,
                                    @io.swagger.v3.oas.annotations.parameters.RequestBody(
                                            required = true,
                                            description = "Customer object to be added.",
@@ -98,8 +101,8 @@ public class CustomerController {
                                                    mediaType = "application/json",
                                                    schema = @Schema(
                                                            oneOf = {
-                                                                   RealCustomer.class,
-                                                                   LegalCustomer.class
+                                                                   RealCustomerDto.class,
+                                                                   LegalCustomerDto.class
                                                            }
                                                    ),
                                                    examples = {
@@ -127,7 +130,7 @@ public class CustomerController {
                                                            )
                                                    }
                                            )
-                                   ) @RequestBody Customer customer) {
+                                   ) @RequestBody CustomerDto customer) {
         return facade.updateCustomer(id, customer);
     }
 
