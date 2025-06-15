@@ -1,6 +1,6 @@
 package dk.amir.customerService.controller.customer;
 
-import dk.amir.customerService.facade.CustomerFacade;
+import dk.amir.customerService.facade.impl.CustomerFacadeImpl;
 import dk.amir.customerService.model.Customer;
 import dk.amir.customerService.model.LegalCustomer;
 import dk.amir.customerService.model.RealCustomer;
@@ -24,10 +24,10 @@ import java.util.List;
 @RequestMapping("/api/v1/customer")
 public class CustomerController {
 
-    private final CustomerFacade facade;
+    private final CustomerFacadeImpl facade;
 
     @Autowired
-    public CustomerController(CustomerFacade facade) {
+    public CustomerController(CustomerFacadeImpl facade) {
         this.facade = facade;
     }
 
